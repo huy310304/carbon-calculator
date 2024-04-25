@@ -22,5 +22,4 @@ This is a simple web application that calculates the carbon footprint based on u
 - **Meat:** 25 kg CO2/kg (average estimate)
 - **Flights:** 0.22 kg CO2/passenger km (varies by airline and route)
 
-Please note that these values are approximate estimates based on available data and may not represent the exact emission factors for each region. For more accurate calculations, consult specific data sources or conduct further research based on the target regions and their characteristics.
-tor
+These values are approximate estimates based on available data and may not represent the exact emission factors for each region.
