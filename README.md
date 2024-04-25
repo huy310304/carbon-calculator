@@ -18,9 +18,9 @@ This is a simple web application that calculates the carbon footprint based on u
 
 ### Asia:
 - **Electricity:** 0.75 kg CO2/kWh (average estimate for major Asian countries)
-- **Transportation:** 0.2 kg CO2/km (placeholder; varies widely by country and transportation mode)
+- **Transportation:** 0.2 kg CO2/km (varies widely by country and transportation mode)
 - **Meat:** 25 kg CO2/kg (average estimate)
-- **Flights:** 0.22 kg CO2/passenger km (placeholder; varies by airline and route)
+- **Flights:** 0.22 kg CO2/passenger km (varies by airline and route)
 
 Please note that these values are approximate estimates based on available data and may not represent the exact emission factors for each region. For more accurate calculations, consult specific data sources or conduct further research based on the target regions and their characteristics.
 tor
