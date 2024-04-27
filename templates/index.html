@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input {
+            padding: 8px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            width: calc(100% - 18px); 
+        }
+        button {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Calculate Your Carbon Footprint</h1>
+    <form id="footprintForm">
+        <label for="electricity">Electricity used (in kWh):</label>
+        <input type="text" id="electricity" name="electricity">
+        <label for="miles">Miles driven by car:</label>
+        <input type="text" id="miles" name="miles">
+        <label for="meat">Meat consumed (in kg):</label>
+        <input type="text" id="meat" name="meat">
+        <label for="flights">Flight hours per year:</label>
+        <input type="text" id="flights" name="flights">
+        <label for="region">Select Your Region:</label>
+        <select id="region" name="region">
+            <option value="us">United States</option>
+            <option value="eu">European Union</option>
+            <option value="asia">Asia</option>
+        </select>
+        <button type="button" onclick="submitForm()">Calculate</button>
+    </form>
+
+    <canvas id="carbonChart" width="400" height="300"></canvas>
+    <div id="result"></div>
+    <div id="recommendations"></div> 
+
+    <script>
+        function submitForm() {
+            const formData = new FormData(document.getElementById('footprintForm'));
+            fetch('/calculate', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // result div stuff update
+                const footprint = data.carbon_footprint;
+                let message = 'Your Carbon Footprint is: <br>';
+                for (const key in footprint) {
+                    message += key + ': ' + footprint[key] + ' kg CO2<br>';
+                }
+                document.getElementById('result').innerHTML = message;
+
+                // chart update
+                updateChart(data.chart_labels, data.chart_data);
+
+                // Display recommendations stuff
+                const recommendations = data.recommendations;
+                let recommendationMessage = '<h2>Recommendations:</h2>';
+                for (const recommendation of recommendations) {
+                    recommendationMessage += '<p>' + recommendation + '</p>';
+                }
+                document.getElementById('recommendations').innerHTML = recommendationMessage;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateChart(labels, data) {
+            const ctx = document.getElementById('carbonChart').getContext('2d');
+            
+            // Clear old chart
+            if (window.chartInstance) {
+                window.chartInstance.destroy();
+            }
+
+            window.chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Carbon Footprint Breakdown',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
