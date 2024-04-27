@@ -3,7 +3,7 @@
 This is a simple web application that calculates the carbon footprint based on user input for electricity usage, miles driven by car, meat consumption, and flight hours per year.
 
 ## How To Use
-1. **Clone the repository**: Use `git clone https://github.com/huy310304/carbon-calculator` to clone the repository to your local machine.
+1. **Clone the repository**: Use `git clone https://github.com/huy310304/carbon-calculator.git` to clone the repository to your local machine.
 2. **Navigate to the project directory**: Open your terminal and change the directory to the `carbon-calculator` folder.
 3. **Run the application**: Execute the command `python app.py` in your terminal to start the Flask web server. Make sure you have Flask installed (`pip install flask`) if needed.
 4. **View the application**: Once the server is running, open your web browser and navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000) to view and interact with the Carbon Footprint Calculator locally.
