@@ -51,23 +51,27 @@ def calculate():
         # Get Recs
         recommendations = []
         total_footprint = sum(carbon_footprint.values())
+
+        if total_footprint < 2000:
+            general_recommendation = "Great Job! You maintain a reasonable amount of carbon footprint. Here are some recommendations to make it even lower:"
+        else:
+            general_recommendation = "Your carbon footprint is higher than average, Here are some recommendations: "
+
+        recommendations.append(general_recommendation)
         
-        if electricity > 0:
+        if electricity > 100:
             energy_recommendation = "Consider using energy-efficient appliances and switching to renewable energy sources where possible to reduce electricity-related emissions."
             recommendations.append(energy_recommendation)
-        
 
-        if miles > 0:
+        if miles > 200:
             transportation_recommendation = "Try to use public transportation, carpool, bike, or walk whenever possible to reduce transportation-related emissions."
             recommendations.append(transportation_recommendation)
-        
 
-        if meat > 0:
+        if meat > 10:
             dietary_recommendation = "Reducing meat consumption, particularly red meat, can significantly lower your carbon footprint. Consider incorporating more plant-based meals into your diet."
             recommendations.append(dietary_recommendation)
-        
 
-        if flights > 0:
+        if flights > 300:
             flight_recommendation = "Minimize air travel and consider alternative modes of transportation for long distances. If you must fly, opt for direct flights and consider carbon offsetting options."
             recommendations.append(flight_recommendation)
         
