@@ -9,14 +9,14 @@ def index():
 @app.route('/calculate', methods=['POST'])
 def calculate():
     try:
-        # Retrieve data from form
+        # Get the data from the input forms
         electricity = float(request.form['electricity'])
         miles = float(request.form['miles'])
         meat = float(request.form['meat'])
         flights = float(request.form['flights'])
-        region = request.form['region']  # Retrieve selected region
+        region = request.form['region'] 
         
-        # Define emission factors based on region
+        # Define emission factors based on region (Factors info suggested by GPT model)
         if region == 'us':
             # Emission factors for the United States
             electricity_factor = 0.41  # kg CO2/kWh (U.S. EPA)
@@ -36,10 +36,11 @@ def calculate():
             meat_factor = 25  # kg CO2/kg (average estimate)
             flights_factor = 0.22  # Assume a value similar to EU for simplicity
         else:
-            # Handle unknown region
             return jsonify({"error": "Unknown region"})
         
-        # Calculate carbon footprint using region-specific factors
+
+
+        # Get the total carbon footprint
         carbon_footprint = {
             "electricity": electricity * electricity_factor,
             "transportation": miles * transportation_factor,
@@ -47,31 +48,30 @@ def calculate():
             "flights": flights * flights_factor
         }
         
-        # Determine recommendations based on carbon footprint
+        # Get Recs
         recommendations = []
         total_footprint = sum(carbon_footprint.values())
         
-        # Energy efficiency recommendations
         if electricity > 0:
             energy_recommendation = "Consider using energy-efficient appliances and switching to renewable energy sources where possible to reduce electricity-related emissions."
             recommendations.append(energy_recommendation)
         
-        # Transportation recommendations
+
         if miles > 0:
             transportation_recommendation = "Try to use public transportation, carpool, bike, or walk whenever possible to reduce transportation-related emissions."
             recommendations.append(transportation_recommendation)
         
-        # Dietary recommendations
+
         if meat > 0:
             dietary_recommendation = "Reducing meat consumption, particularly red meat, can significantly lower your carbon footprint. Consider incorporating more plant-based meals into your diet."
             recommendations.append(dietary_recommendation)
         
-        # Flight recommendations
+
         if flights > 0:
             flight_recommendation = "Minimize air travel and consider alternative modes of transportation for long distances. If you must fly, opt for direct flights and consider carbon offsetting options."
             recommendations.append(flight_recommendation)
         
-                # Prepare data for chart
+        # Data for chart
         labels = list(carbon_footprint.keys())
         data = list(carbon_footprint.values())
         
