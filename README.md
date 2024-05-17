@@ -2,8 +2,6 @@
 
 ## [A Short Demo on Youtube](https://youtu.be/Jo0kLyXL3QY)
 This is a simple web application that calculates the carbon footprint based on user input for electricity usage, miles driven by car, meat consumption, and flight hours per year.  
-This was made in a short amount of time so more updates will be added and needed. Apologize for any mistake
-
 
 ## How To Use
 1. **Clone the repository**: Use `git clone https://github.com/huy310304/carbon-calculator.git` to clone the repository to your local machine.
